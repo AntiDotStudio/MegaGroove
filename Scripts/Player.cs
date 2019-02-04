@@ -26,9 +26,9 @@ public class Player : KinematicBody
     {
         velocity.x = 0;
 
-        var right = Input.IsActionPressed("ui_right");
-        var left = Input.IsActionPressed("ui_left");
-        var jump = Input.IsActionPressed("ui_select");
+        var right = Input.IsActionPressed("D");
+        var left = Input.IsActionPressed("Q");
+        var jump = Input.IsActionPressed("S");
 
         if (IsOnFloor() && jump)
             velocity.y = jumpSpeed;
