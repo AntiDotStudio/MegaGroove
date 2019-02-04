@@ -1,0 +1,6 @@
+D:\MegaGroove\MegaGroove\.mono\temp\obj\Tools\MegaGroove.csprojResolveAssemblyReference.cache
+D:\MegaGroove\MegaGroove\.mono\temp\obj\Tools\MegaGroove.csproj.CoreCompileInputs.cache
+D:\MegaGroove\MegaGroove\.mono\temp\bin\Tools\MegaGroove.dll
+D:\MegaGroove\MegaGroove\.mono\temp\bin\Tools\MegaGroove.pdb
+D:\MegaGroove\MegaGroove\.mono\temp\obj\Tools\MegaGroove.dll
+D:\MegaGroove\MegaGroove\.mono\temp\obj\Tools\MegaGroove.pdb

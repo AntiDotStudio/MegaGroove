@@ -16,25 +16,32 @@ public class Player : KinematicBody
         
     }
 	
-	public _physics_Process(float delta){
-		direction = Vector3(0, 0, 0);
-		if (@event is InputEventKey eventKey){
-        	if (eventKey.Pressed && eventKey.Scancode == (int)KeyList.Left){
-            	direction.x -= 1;
-			}
-			else if(eventKey.Pressed && eventKey.Scancode == (int)KeyList.Right){
-				direction.x += 1;
-			}
-			else if(eventKey.Pressed && eventKey.Scancode == (int)KeyList.Up){
-				direction.z -= 1;
-			}
-			else if(eventKey.Pressed && eventKey.Scancode == (int)KeyList.Down){
-				direction.z += 1;
-			}
-		}
-		
-		move_and_slide(direction, Vector3(0, 1, 0));
-	}
+	private float runSpeed = 350;
+    private float jumpSpeed = -1000;
+    private float gravity = 2500;
+
+    private Vector3 velocity = new Vector3();
+
+    private void getInput()
+    {
+        velocity.x = 0;
+
+        var right = Input.IsActionPressed("ui_right");
+        var left = Input.IsActionPressed("ui_left");
+        var jump = Input.IsActionPressed("ui_select");
+
+        if (IsOnFloor() && jump)
+            velocity.y = jumpSpeed;
+        if (right)
+            velocity.x += runSpeed;
+        if (left)
+            velocity.x -= runSpeed;
+    }
+
+    public override void _PhysicsProcess(float delta)
+    {
+        velocity.y += gravity * delta;
+    }
 
 //    public override void _Process(float delta)
 //    {
