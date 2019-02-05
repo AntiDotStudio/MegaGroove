@@ -3,8 +3,6 @@ using System;
 
 public class Player : KinematicBody
 {
-	public int speed = 200;
-	public Vector3 direction = new Vector3();
     // Member variables here, example:
     // private int a = 2;
     // private string b = "textvar";
@@ -16,31 +14,43 @@ public class Player : KinematicBody
         
     }
 	
-	private float runSpeed = 350;
-    private float jumpSpeed = -1000;
-    private float gravity = 2500;
+	[Export] public int Speed = 20;
+	[Export] float timeCounter;
+	[Export] int mapRadius = 10;
+	[Export] bool isRight = false;
+    Vector3 velocity = new Vector3();
 
-    private Vector3 velocity = new Vector3();
-
-    private void getInput()
+    public void GetInput()
     {
-        velocity.x = 0;
-
-        var right = Input.IsActionPressed("D");
-        var left = Input.IsActionPressed("Q");
-        var jump = Input.IsActionPressed("S");
-
-        if (IsOnFloor() && jump)
-            velocity.y = jumpSpeed;
-        if (right)
-            velocity.x += runSpeed;
-        if (left)
-            velocity.x -= runSpeed;
+        velocity = new Vector3();
+        if (Input.IsActionPressed("ui_right")){
+            velocity.x -= mapRadius;
+			velocity.z += mapRadius;
+			isRight = true;
+        }else if (Input.IsActionPressed("ui_left")){
+            velocity.x += mapRadius;
+			velocity.z -= mapRadius;
+			isRight = false;
+        }else{
+			velocity.x = 0;
+			velocity.z = 0;
+		}
+        
+		
+		
     }
 
     public override void _PhysicsProcess(float delta)
     {
-        velocity.y += gravity * delta;
+		timeCounter += delta;
+		velocity = new Vector3();
+        GetInput();
+		velocity.y -= 5;
+        if(isRight == true){
+			MoveAndSlide(new Vector3(velocity.x*Mathf.Cos(timeCounter), 0, velocity.z*Mathf.Sin(timeCounter)));
+		}else{
+			MoveAndSlide(new Vector3(velocity.x*Mathf.Cos(timeCounter), 0, velocity.z*Mathf.Sin(timeCounter)));
+		}
     }
 
 //    public override void _Process(float delta)
