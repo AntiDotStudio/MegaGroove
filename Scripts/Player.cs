@@ -19,6 +19,7 @@ public class Player : KinematicBody
 	[Export] int mapRadius = 10;
 	[Export] bool isRight = false;
     Vector3 velocity = new Vector3();
+	private Vector3 tempVector = new Vector3();
 
     public void GetInput()
     {
@@ -28,8 +29,8 @@ public class Player : KinematicBody
 			velocity.z += mapRadius;
 			isRight = true;
         }else if (Input.IsActionPressed("ui_left")){
-            velocity.x += mapRadius;
-			velocity.z -= mapRadius;
+            velocity.x -= mapRadius;
+			velocity.z += mapRadius;
 			isRight = false;
         }else{
 			velocity.x = 0;
@@ -46,10 +47,13 @@ public class Player : KinematicBody
 		velocity = new Vector3();
         GetInput();
 		velocity.y -= 5;
+		tempVector = new Vector3();
         if(isRight == true){
-			MoveAndSlide(new Vector3(velocity.x*Mathf.Cos(timeCounter), 0, velocity.z*Mathf.Sin(timeCounter)));
+			tempVector = new Vector3(velocity.x*Mathf.Cos(timeCounter), 0, velocity.z*Mathf.Sin(timeCounter));
+			MoveAndSlide(tempVector);
 		}else{
-			MoveAndSlide(new Vector3(velocity.x*Mathf.Cos(timeCounter), 0, velocity.z*Mathf.Sin(timeCounter)));
+			tempVector = new Vector3(Mathf.Abs(velocity.x*Mathf.Acos(timeCounter)), 0, Mathf.Abs(velocity.z*Mathf.Asin(timeCounter)));
+			MoveAndSlide(tempVector);
 		}
     }
 
