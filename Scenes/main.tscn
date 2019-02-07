@@ -35,10 +35,11 @@ Speed = 20
 timeCounter = 0.0
 mapRadius = 10
 isRight = false
+mapCenter = Vector3( 0, 0, 0 )
 
 [node name="Camera" type="Camera" parent="GroovyGuy" index="2"]
 
-transform = Transform( -0.333333, 0, -2.91409e-008, -1.00532e-008, 0.312869, 0.114996, 2.73519e-008, 0.114996, -0.312869, -0.0830238, 0.968145, -0.639006 )
+transform = Transform( 0.333333, 0, 0, 0, -1.45705e-008, 0.333333, 0, -0.333333, -1.45705e-008, -0.0830238, 9.03108, -0.639006 )
 keep_aspect = 1
 cull_mask = 1048575
 environment = null
