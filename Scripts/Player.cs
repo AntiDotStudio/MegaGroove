@@ -7,10 +7,13 @@ public class Player : KinematicBody
     // private int a = 2;
     // private string b = "textvar";
 
+	Vector3 toCenter = new Vector3();
+
     public override void _Ready()
     {
         // Called every time the node is added to the scene.
         // Initialization here
+		toCenter = new Vector3(0, 0, 0);
         
     }
 	
@@ -44,16 +47,23 @@ public class Player : KinematicBody
     public override void _PhysicsProcess(float delta)
     {
 		timeCounter += delta;
+		if(timeCounter >= 1){
+			timeCounter = 0;
+		}
 		velocity = new Vector3();
         GetInput();
 		velocity.y -= 5;
 		tempVector = new Vector3();
+		//MoveAndSlide(new Vector3(10*Mathf.Cos(-(2 * 3.14f * timeCounter)), 0, 10*Mathf.Sin(2 * 3.14f * timeCounter)));
+		GD.Print((velocity.x*Mathf.Acos(-1)));
+		GD.Print(this.Translation);
+		//GD.Print(Mathf.Cos(10));
         if(isRight == true){
 			tempVector = new Vector3(velocity.x*Mathf.Cos(timeCounter), 0, velocity.z*Mathf.Sin(timeCounter));
-			MoveAndSlide(tempVector);
+			MoveAndSlide(tempVector.Normalized());
 		}else{
-			tempVector = new Vector3(Mathf.Abs(velocity.x*Mathf.Acos(timeCounter)), 0, Mathf.Abs(velocity.z*Mathf.Asin(timeCounter)));
-			MoveAndSlide(tempVector);
+			tempVector = new Vector3(velocity.x*Mathf.Cos(timeCounter), 0, velocity.z*(-Mathf.Sin(timeCounter)));
+			MoveAndSlide(tempVector.Normalized());
 		}
     }
 
